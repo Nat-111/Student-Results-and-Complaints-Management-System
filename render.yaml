@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: upsa-backend
+    runtime: python
+    buildCommand: "pip install -r requirements.txt && python manage.py migrate"
+    startCommand: "gunicorn config.wsgi"
+    envVars:
+      - key: DEBUG
+        value: "False"
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DATABASE_URL
+        value: "sqlite:///db.sqlite3"
+      # You will need to add your FIREBASE keys manually in the Render Dashboard after deployment
